@@ -76,6 +76,9 @@
         # terraform
         # toml
         # typescript
+        vala = pkgs: builtins.attrValues {
+          inherit (pkgs) uncrustify vala vala-lint vala-language-server xmlbird;
+        };
         xml = pkgs: builtins.attrValues {
           inherit (pkgs) xmlformat lemminx libxml2;
         };
