@@ -9,6 +9,12 @@
             (if lang != null then { ${lang.name} = lang; } else { })
             [ lsps linters formatters other ]
         );
+      bash = pkgs: mkToolSuite {
+        lang = pkgs.bash;
+        lsps = [ pkgs.nodePackages.bash-language-server ];
+        linters = [ pkgs.shellcheck ];
+        formatters = [ pkgs.shfmt ];
+      };
 
       lua = pkgs: mkToolSuite {
         lang = pkgs.lua;
@@ -17,21 +23,41 @@
         formatters = [ pkgs.stylua ];
       };
 
+      latex = pkgs: mkToolSuite {
+        lsps = [ pkgs.texlab ];
+        linters = [ pkgs.chktex ];
+        formatters = [ pkgs.latexindent ];
+      };
+
+      nix = pkgs: mkToolSuite {
+        lsps = [ pkgs.nixd ];
+        linters = [ pkgs.statix pkgs.deadnix ];
+        formatters = [ pkgs.nixfmt-rfc-style ];
+        # other = [ pkgs.nixdoc ];
+      };
+
       ocaml = pkgs: mkToolSuite {
         lang = pkgs.ocaml;
         lsps = [ pkgs.ocamlPackages.ocaml-lsp ];
         formatters = [ pkgs.ocamlPackages.ocamlformat pkgs.ocamlPackages.ocp-indent ];
         other = [ pkgs.opam pkgs.ocamlPackages.utop ];
       };
+
+      xml = pkgs: mkToolSuite {
+        lsps = [ pkgs.lemminx ];
+        linters = [ pkgs.libxml2 ]; # provides xmllint
+        formatters = [ pkgs.xmlformat ];
+      };
+
+      yaml = pkgs: mkToolSuite {
+        lsps = [ pkgs.yaml-language-server ];
+        linters = [ pkgs.yamllint ];
+        formatters = [ pkgs.yamlfmt ];
+      };
+
     };
   };
 }
-# {
-#   description = "A collection of development environments";
-#
-#   outputs = _:
-#     {
-#       lib = {
 #         # ada als
 #         # agda
 #         # aiken
@@ -41,10 +67,6 @@
 #         # assembly
 #         # astro
 #         # awk = pkgs: builtins.attrValues { };
-#         bash = pkgs: builtins.attrValues {
-#           inherit (pkgs) shellcheck shfmt;
-#           inherit (pkgs.nodePackages) bash-language-server;
-#         };
 #         # c
 #         # cpp
 #         # clojure
@@ -84,30 +106,11 @@
 #         json = pkgs: builtins.attrValues {
 #           inherit (pkgs.nodePackages) jsonlint;
 #         };
-#         lua = pkgs: builtins.attrValues {
-#           inherit (pkgs) lua-language-server selene stylua;
-#         };
-#         latex = pkgs: builtins.attrValues {
-#           inherit (pkgs) latexindent chktex texlab;
-#         };
 #         # kotlin
 #         nickel = pkgs: builtins.attrValues {
 #           inherit (pkgs) nickel nls;
 #         };
-#         nix = pkgs: builtins.attrValues {
-#           inherit (pkgs)
-#             nixd
-#             deadnix
-#             statix
-#             nixfmt-rfc-style
-#             # nixdoc
-#             ;
-#         };
 #         # nvim
-#         ocaml = pkgs: builtins.attrValues {
-#           inherit (pkgs) ocaml opam;
-#           inherit (pkgs.ocamlPackages) ocaml-lsp ocamlformat ocp-indent utop;
-#         };
 #         # objectivc
 #         # powershell
 #         # protobuf
@@ -125,19 +128,6 @@
 #         vala = pkgs: builtins.attrValues {
 #           inherit (pkgs) uncrustify vala vala-lint vala-language-server xmlbird;
 #         };
-#         # vhdl
-#         xml = pkgs: builtins.attrValues {
-#           inherit (pkgs) xmlformat lemminx libxml2;
-#         };
-#         yaml = pkgs: builtins.attrValues {
-#           inherit (pkgs) yamlfmt yamllint yaml-language-server; #yamlfix
-#         };
 #         zig = pkgs: builtins.attrValues {
 #           inherit (pkgs) zls;
-#         };
 #         # zsh = pkgs: builtins.attrValues {
-#         #   inherit (pkgs) 
-#         # };
-#       };
-#     };
-# }
