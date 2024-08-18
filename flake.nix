@@ -53,7 +53,9 @@
         # java
         # javascript = pkgs: builtins.attrValues { };
         # julia
-        # json
+        json = pkgs: builtins.attrValues {
+          inherit (pkgs.nodePackages) jsonlint;
+        };
         lua = pkgs: builtins.attrValues {
           inherit (pkgs) lua lua-language-server stylua;
           inherit (pkgs.luajitPackages) luacheck;
