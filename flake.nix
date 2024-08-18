@@ -4,18 +4,49 @@
   outputs = _:
     {
       lib = {
-        # css = pkgs: with pkgs; [ prettierd ];
-        # js = pkgs: with pkgs; [ prettierd ];
+        # assembly
+        # c
+        # cpp
+        # clojure
+        crystal = pkgs: builtins.attrValues {
+          inherit (pkgs) crystalline icr ameba crystal;
+        };
+        # csharp
+        # d
+        # dart
+        # TODO: add lsp, formatter
+        css = pkgs: builtins.attrValues {
+          inherit (pkgs) stylelint;
+        };
+        # d
+        # docker
+        # elixir
+        elm = pkgs: builtins.attrValues {
+          inherit (pkgs.elmPackages) elm-format;
+        };
+        # emmet
+        # erlang
+        # fish
+        # fsharp
+        # fortran
+        # gleam
+        # groovy
+        # graphql
+        # html
+        # haskell
+        # java
+        # javascript = pkgs: builtins.attrValues { };
+        # julia
+        # json
         lua = pkgs: builtins.attrValues {
           inherit (pkgs) lua lua-language-server stylua;
           inherit (pkgs.luajitPackages) luacheck;
         };
-
-        # md = pkgs: with pkgs; [ markdownlint ];
-        ocaml = pkgs: builtins.attrValues {
-          inherit (pkgs) ocaml opam;
-          inherit (pkgs.ocamlPackages) ocaml-lsp ocamlformat ocp-indent utop;
+        latex = pkgs: builtins.attrValues {
+          inherit (pkgs) latexindent chktex texlab;
         };
+        # kotlin
+        # nickel
         nix = pkgs: builtins.attrValues {
           inherit (pkgs)
             nixd
@@ -25,12 +56,27 @@
             # nixdoc
             ;
         };
-
-        # scss = pkgs: with pkgs; [ prettierd ];
-        latex = pkgs: builtins.attrValues {
-          inherit (pkgs) latexindent chktex texlab;
+        ocaml = pkgs: builtins.attrValues {
+          inherit (pkgs) ocaml opam;
+          inherit (pkgs.ocamlPackages) ocaml-lsp ocamlformat ocp-indent utop;
         };
-        # ts = pkgs: with pkgs; [ prettierd ];
+        # objectivc
+        # powershell
+        # protobuf
+        # python
+        # r
+        # ruby
+        # rust
+        # scala
+        # shell
+        # sql
+        # swift
+        # terraform
+        # toml
+        # typescript
+        # xml
+        # yaml
+        # zig
       };
     };
 }
