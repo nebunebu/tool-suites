@@ -38,6 +38,10 @@
         };
         # emmet
         # erlang
+        fennel = pkgs: builtins.attrValues {
+          inherit (pkgs) fennel-ls fnlfmt;
+          inherit (pkgs.luajitPackages) fennel;
+        };
         # fish
         # fsharp
         # fortran
