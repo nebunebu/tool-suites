@@ -4,15 +4,33 @@
   outputs = _:
     {
       lib = {
-        css = pkgs: with pkgs; [ prettierd ];
-        hello = pkgs: with pkgs; [ cowsay hello ];
-        js = pkgs: with pkgs; [ prettierd ];
-        lua = pkgs: with pkgs; [ lua-language-server stylua luajitPackages.luacheck ];
-        md = pkgs: with pkgs; [ markdownlint ];
-        nix = pkgs: with pkgs; [ nixd deadnix statix nixfmt-rfc-style ];
-        scss = pkgs: with pkgs; [ prettierd ];
-        tex = pkgs: with pkgs; [ latexindent chktex ];
-        ts = pkgs: with pkgs; [ prettierd ];
+        # css = pkgs: with pkgs; [ prettierd ];
+        # js = pkgs: with pkgs; [ prettierd ];
+        lua = pkgs: builtins.attrValues {
+          inherit (pkgs) lua lua-language-server stylua;
+          inherit (pkgs.luajitPackages) luacheck;
+        };
+
+        # md = pkgs: with pkgs; [ markdownlint ];
+        ocaml = pkgs: builtins.attrValues {
+          inherit (pkgs) ocaml opam;
+          inherit (pkgs.ocamlPackages) ocaml-lsp ocamlformat ocp-indent utop;
+        };
+        nix = pkgs: builtins.attrValues {
+          inherit (pkgs)
+            nixd
+            deadnix
+            statix
+            nixfmt-rfc-style
+            # nixdoc
+            ;
+        };
+
+        # scss = pkgs: with pkgs; [ prettierd ];
+        latex = pkgs: builtins.attrValues {
+          inherit (pkgs) latexindent chktex texlab;
+        };
+        # ts = pkgs: with pkgs; [ prettierd ];
       };
     };
 }
