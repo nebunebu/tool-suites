@@ -1,6 +1,5 @@
 {
   description = "A collection of development environments";
-
   inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
 
   outputs =
@@ -17,10 +16,16 @@
       lib = rec {
         mkToolSuite = { lang ? null, lsps ? [ ], linters ? [ ], formatters ? [ ], other ? [ ] }:
           builtins.attrValues (
-            builtins.foldl' (acc: list: acc // builtins.listToAttrs (map (pkg: { name = pkg.name; value = pkg; }) list))
+            builtins.foldl'
+              (
+                acc: list:
+                  acc //
+                  builtins.listToAttrs (map (pkg: { inherit (pkg) name; value = pkg; }) list)
+              )
               (if lang != null then { ${lang.name} = lang; } else { })
               [ lsps linters formatters other ]
           );
+
         bash = pkgs: mkToolSuite {
           lang = pkgs.bash;
           lsps = [ pkgs.nodePackages.bash-language-server ];
