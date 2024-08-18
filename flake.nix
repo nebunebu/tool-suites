@@ -80,7 +80,9 @@
           inherit (pkgs) xmlformat lemminx libxml2;
         };
         # yaml
-        # zig
+        zig = pkgs: builtins.attrValues {
+          inherit (pkgs) zls;
+        };
       };
     };
 }
