@@ -36,7 +36,7 @@
         lua = pkgs: mkToolSuite {
           lang = pkgs.lua;
           lsps = [ pkgs.lua-language-server ];
-          linters = [ pkgs.selene ];
+          linters = [ pkgs.luajitPackages.luacheck ];
           formatters = [ pkgs.stylua ];
         };
 
