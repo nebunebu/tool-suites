@@ -5,6 +5,11 @@
     {
       lib = {
         # assembly
+        # awk = pkgs: builtins.attrValues { };
+        bash = pkgs: builtins.attrValues {
+          inherit (pkgs) shellcheck shfmt;
+          inherit (pkgs.nodePackages) bash-language-server;
+        };
         # c
         # cpp
         # clojure
