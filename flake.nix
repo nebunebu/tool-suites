@@ -76,6 +76,7 @@
             # nixdoc
             ;
         };
+        # nvim
         ocaml = pkgs: builtins.attrValues {
           inherit (pkgs) ocaml opam;
           inherit (pkgs.ocamlPackages) ocaml-lsp ocamlformat ocp-indent utop;
