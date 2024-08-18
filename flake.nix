@@ -95,7 +95,9 @@
         xml = pkgs: builtins.attrValues {
           inherit (pkgs) xmlformat lemminx libxml2;
         };
-        # yaml
+        yaml = pkgs: builtins.attrValues {
+          inherit (pkgs) yamlfmt yamllint yaml-language-server; #yamlfix
+        };
         zig = pkgs: builtins.attrValues {
           inherit (pkgs) zls;
         };
