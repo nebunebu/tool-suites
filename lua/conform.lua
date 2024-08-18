@@ -1,13 +1,13 @@
 require("conform").setup({
 	formatters_by_ft = {
-		css = { "prettierd" },
-		javascript = { "prettierd" },
+		-- css = { "prettierd" },
+		-- javascript = { "prettierd" },
 		lua = { "stylua" },
-		markdown = { "markdownlint" },
-		nix = { "nixfmt" },
-		scss = { "prettierd" },
-		tex = { "latexindent" },
-		typescript = { "prettierd" },
+		-- markdown = { "markdownlint" },
+		-- nix = { "nixfmt" },
+		-- scss = { "prettierd" },
+		-- tex = { "latexindent" },
+		-- typescript = { "prettierd" },
 	},
 
 	format_on_save = { lsp_format = "fallback" },

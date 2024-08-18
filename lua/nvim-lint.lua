@@ -1,15 +1,15 @@
 require("lint").linters_by_ft = {
-	bash = { "shellcheck" },
-	css = { "stylelint" },
-	javascript = { "eslint" },
-	lua = { "luacheck" },
-	markdown = { "markdownlint" },
-	nix = { "deadnix", "statix" },
-	python = { "pylint" },
-	scss = { "stylelint" },
-	tex = { "chktex" },
-	typescript = { "eslint" },
-	zsh = { "zsh" },
+	-- bash = { "shellcheck" },
+	-- css = { "stylelint" },
+	-- javascript = { "eslint" },
+	lua = { "selene" },
+	-- markdown = { "markdownlint" },
+	-- nix = { "deadnix", "statix" },
+	-- python = { "pylint" },
+	-- scss = { "stylelint" },
+	-- tex = { "chktex" },
+	-- typescript = { "eslint" },
+	-- zsh = { "zsh" },
 }
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
