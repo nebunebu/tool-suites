@@ -73,7 +73,23 @@
         };
       };
 
-      checks = { };
+      checks = forAllSystems (
+        system:
+        {
+          pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              nixd.enable = true;
+              statix.enable = true;
+              nixfmt.enable = false;
+              deadnix = {
+                enable = true;
+                settings.noLambdaPatternNames = true;
+              };
+            };
+          };
+        }
+      );
 
       devShells = forAllSystems (
         system:
