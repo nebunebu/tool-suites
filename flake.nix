@@ -46,7 +46,9 @@
           inherit (pkgs) latexindent chktex texlab;
         };
         # kotlin
-        # nickel
+        nickel = pkgs: builtins.attrValues {
+          inherit (pkgs) nickel nls;
+        };
         nix = pkgs: builtins.attrValues {
           inherit (pkgs)
             nixd
