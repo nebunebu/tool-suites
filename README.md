@@ -12,21 +12,17 @@ a devshell with a nix flake. In the example below lspconfig,
 nvim-lint, and conform are used to do this.
 
 ```lua
+-- configure lua and nix lang servers
 require("lspconfig").lua_ls.setup({})
 require("lspconfig").nixd.setup({})
 
-
+-- configure lua and nix linters
 require("lint").linters_by_ft = {
- lua = { "luacheck" },
+ lua = { "selene" },
  nix = { "deadnix", "statix" },
 }
 
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
- callback = function()
-  require("lint").try_lint()
- end,
-})
-
+-- configure lua and nix formatters
 require("conform").setup({
  formatters_by_ft = {
   lua = { "stylua" },
