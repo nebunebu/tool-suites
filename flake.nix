@@ -4,7 +4,14 @@
   outputs = _:
     {
       lib = {
+        # ada als
+        # agda
+        # aiken
+        # angularls
+        # ansibells
+        # antlersls
         # assembly
+        # astro
         # awk = pkgs: builtins.attrValues { };
         bash = pkgs: builtins.attrValues {
           inherit (pkgs) shellcheck shfmt;
@@ -84,6 +91,7 @@
         vala = pkgs: builtins.attrValues {
           inherit (pkgs) uncrustify vala vala-lint vala-language-server xmlbird;
         };
+        # vhdl
         xml = pkgs: builtins.attrValues {
           inherit (pkgs) xmlformat lemminx libxml2;
         };
@@ -91,6 +99,9 @@
         zig = pkgs: builtins.attrValues {
           inherit (pkgs) zls;
         };
+        # zsh = pkgs: builtins.attrValues {
+        #   inherit (pkgs) 
+        # };
       };
     };
 }
