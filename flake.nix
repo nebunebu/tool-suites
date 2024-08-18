@@ -57,8 +57,7 @@
           inherit (pkgs.nodePackages) jsonlint;
         };
         lua = pkgs: builtins.attrValues {
-          inherit (pkgs) lua lua-language-server stylua;
-          inherit (pkgs.luajitPackages) luacheck;
+          inherit (pkgs) lua-language-server selene stylua;
         };
         latex = pkgs: builtins.attrValues {
           inherit (pkgs) latexindent chktex texlab;
