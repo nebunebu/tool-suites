@@ -75,3 +75,75 @@ require("conform").setup({
     };
 }
 ```
+
+## TODO
+
+Create relevant functions for the following and example configurations
+in `lua/lspconfig.lua`, `lua/nvim-lint.lua`, and `lua/conform.nvim`:
+
+```txt
+    - [ ] ada
+    - [ ] agda
+    - [ ] aiken
+    - [ ] angularls
+    - [ ] ansibells
+    - [ ] antlersls
+    - [ ] assembly
+    - [ ] astro
+    - [ ] awk 
+    - [ ] bash 
+    - [ ] c
+    - [ ] cpp
+    - [ ] clojure
+    - [ ] crystal 
+    - [ ] csharp
+    - [ ] d
+    - [ ] dart
+    - [ ] css 
+    - [ ] d
+    - [ ] docker
+    - [ ] elixir
+    - [ ] elm 
+    - [ ] emmet
+    - [ ] erlang
+    - [ ] fennel 
+    - [ ] fish
+    - [ ] fsharp
+    - [ ] fortran
+    - [ ] gleam
+    - [ ] groovy
+    - [ ] graphql
+    - [ ] html
+    - [ ] haskell
+    - [ ] java
+    - [ ] javascript 
+    - [ ] julia
+    - [ ] json 
+    - [ ] lua 
+    - [ ] latex 
+    - [ ] kotlin
+    - [ ] nickel 
+    - [ ] nix 
+    - [ ] nvim
+    - [ ] ocaml 
+    - [ ] objectivc
+    - [ ] powershell
+    - [ ] protobuf
+    - [ ] python
+    - [ ] r
+    - [ ] ruby
+    - [ ] rust
+    - [ ] scala
+    - [ ] shell
+    - [ ] sql
+    - [ ] swift
+    - [ ] terraform
+    - [ ] toml
+    - [ ] typescript
+    - [ ] vala 
+    - [ ] vhdl
+    - [ ] xml 
+    - [ ] yaml 
+    - [ ] zig 
+    - [ ] zsh 
+```
