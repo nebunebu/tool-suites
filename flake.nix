@@ -17,23 +17,45 @@
       forAllSystems = inputs.nixpkgs.lib.genAttrs supportedSystems;
     in
     {
-      packages = forAllSystems
-        (system:
-          let
-            pkgs = inputs.nixpkgs.legacyPackages.${system};
-          in
-          {
-            luaBundle = pkgs: [
-              pkgs.lua-language-server
-              pkgs.stylua
-              pkgs.luajitPackages.luacheck
-            ];
+      # packages = forAllSystems
+      #   (system:
+      #     let
+      #       pkgs = inputs.nixpkgs.legacyPackages.${system};
+      #     in
+      #     {
+      #       luaBundle = pkgs: [
+      #         pkgs.lua-language-server
+      #         pkgs.stylua
+      #         pkgs.luajitPackages.luacheck
+      #       ];
+      #
+      #       jsBundle = pkgs: [
+      #         pkgs.prettierd
+      #         pkgs.stylelint
+      #       ];
+      #     }
+      #   );
 
-            jsBundle = pkgs: [
-              pkgs.prettierd
-              pkgs.stylelint
-            ];
-          }
-        );
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = inputs.nixpkgs.legacyPackages.${system};
+        in
+        {
+          default = pkgs.mkShell {
+            name = "luaShell";
+            packages = builtins.attrValues {
+
+              inherit (pkgs)
+                lua-language-server
+                stylua
+                ;
+              inherit (pkgs.luajitPackages)
+                luacheck
+                ;
+            };
+          };
+        }
+      );
     };
 }
