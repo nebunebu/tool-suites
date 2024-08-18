@@ -74,7 +74,9 @@
         # terraform
         # toml
         # typescript
-        # xml
+        xml = pkgs: builtins.attrValues {
+          inherit (pkgs) xmlformat lemminx libxml2;
+        };
         # yaml
         # zig
       };
