@@ -79,6 +79,7 @@
           pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
             src = ./.;
             hooks = {
+              # nix
               nixd.enable = true;
               statix.enable = true;
               nixfmt.enable = false;
@@ -86,6 +87,10 @@
                 enable = true;
                 settings.noLambdaPatternNames = true;
               };
+              # lua
+              lua-ls.enable = true;
+              luacheck.enable = true;
+              stylua.enable = true;
             };
           };
         }
