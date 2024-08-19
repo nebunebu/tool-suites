@@ -1,6 +1,12 @@
 {
   description = "A collection of development environments";
-  inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   outputs =
     inputs:
@@ -73,7 +79,6 @@
         };
       };
 
-      # FIX: not working
       checks = forAllSystems (
         system:
         {
@@ -81,7 +86,7 @@
             src = ./.;
             hooks = {
               # nix
-              nixd.enable = true;
+              # nixd.enable = true;
               statix.enable = true;
               nixfmt.enable = false;
               deadnix = {
