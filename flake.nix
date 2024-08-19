@@ -43,7 +43,7 @@
         latex = pkgs: mkToolSuite {
           lsps = [ pkgs.texlab ];
           linters = [ pkgs.texlivePackages.chktex ];
-          formatters = [ pkgs.latexindent ];
+          formatters = [ pkgs.texlivePackages.latexindent ];
         };
 
         nix = pkgs: mkToolSuite {
