@@ -94,7 +94,7 @@
                 settings.noLambdaPatternNames = true;
               };
               # lua
-              lua-ls.enable = true;
+              lua-ls.enable = false; # NOTE: error even though passing
               luacheck.enable = true;
               stylua.enable = true;
             };
