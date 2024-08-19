@@ -42,7 +42,7 @@
 
         latex = pkgs: mkToolSuite {
           lsps = [ pkgs.texlab ];
-          linters = [ pkgs.chktex ];
+          linters = [ pkgs.texlivePackages.chktex ];
           formatters = [ pkgs.latexindent ];
         };
 
