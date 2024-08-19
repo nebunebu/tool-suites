@@ -115,11 +115,11 @@ in `lua/lspconfig.lua`, `lua/nvim-lint.lua`, and `lua/conform.nvim`:
     - [ ] javascript 
     - [ ] julia
     - [ ] json 
-    - [ ] lua 
+    - [x] lua 
     - [ ] latex 
     - [ ] kotlin
     - [ ] nickel 
-    - [ ] nix 
+    - [x] nix 
     - [ ] nvim
     - [ ] ocaml 
     - [ ] objectivc
