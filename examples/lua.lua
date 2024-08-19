@@ -1,11 +1,11 @@
-require("lspconfig").nixd.setup({})
+require("lspconfig").lua_ls.setup({})
 
 require("lint").linters_by_ft = {
-	nix = { "deadnix", "statix" },
+	lua = { "luacheck" },
 }
 
 require("conform").setup({
 	formatters_by_ft = {
-		nix = { "nixfmt" },
+		lua = { "stylua" },
 	},
 })
