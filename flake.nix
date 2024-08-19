@@ -21,7 +21,7 @@
     {
       lib = rec {
         mkToolSuite = { lang ? null, lsps ? [ ], linters ? [ ], formatters ? [ ], other ? [ ] }:
-          builtins.concatLists [ (if lang != null then [ lang ] else [ ]) lsps linters formatters other ];
+          builtins.concatLists [ (inputs.nixpkgs.lib.optionals (lang != null) [ lang ]) lsps linters formatters other ];
         bash = pkgs: mkToolSuite {
           lang = pkgs.bash;
           lsps = [ pkgs.nodePackages.bash-language-server ];
