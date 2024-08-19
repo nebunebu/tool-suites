@@ -73,6 +73,7 @@
         };
       };
 
+      # FIX: not working
       checks = forAllSystems (
         system:
         {
