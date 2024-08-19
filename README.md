@@ -74,8 +74,8 @@ require("conform").setup({
 
 ## TODO
 
-Create relevant functions for the following and example configurations
-in `lua/lspconfig.lua`, `lua/nvim-lint.lua`, and `lua/conform.nvim`:
+Create relevant function calls for the following and example configurations
+in `examples/lspconfig.lua`, `examples/nvim-lint.lua`, and `examples/conform.nvim`:
 
 ```txt
     - [ ] ada
