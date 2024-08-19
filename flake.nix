@@ -53,12 +53,12 @@
           # other = [ pkgs.nixdoc ];
         };
 
-        ocaml = pkgs: mkToolSuite {
-          lang = pkgs.ocaml;
-          lsps = [ pkgs.ocamlPackages.ocaml-lsp ];
-          formatters = [ pkgs.ocamlPackages.ocamlformat pkgs.ocamlPackages.ocp-indent ];
-          other = [ pkgs.opam pkgs.ocamlPackages.utop ];
-        };
+        # ocaml = pkgs: mkToolSuite {
+        #   lang = pkgs.ocaml;
+        #   lsps = [ pkgs.ocamlPackages.ocaml-lsp ];
+        #   formatters = [ pkgs.ocamlPackages.ocamlformat pkgs.ocamlPackages.ocp-indent ];
+        #   other = [ pkgs.opam pkgs.ocamlPackages.utop ];
+        # };
 
         xml = pkgs: mkToolSuite {
           lsps = [ pkgs.lemminx ];
@@ -116,77 +116,3 @@
 
     };
 }
-
-#         # ada als
-#         # agda
-#         # aiken
-#         # angularls
-#         # ansibells
-#         # antlersls
-#         # assembly
-#         # astro
-#         # awk = pkgs: builtins.attrValues { };
-#         # c
-#         # cpp
-#         # clojure
-#         crystal = pkgs: builtins.attrValues {
-#           inherit (pkgs) crystalline icr ameba crystal;
-#         };
-#         # csharp
-#         # d
-#         # dart
-#         # TODO: add lsp, formatter
-#         css = pkgs: builtins.attrValues {
-#           inherit (pkgs) stylelint;
-#         };
-#         # d
-#         # docker
-#         # elixir
-#         elm = pkgs: builtins.attrValues {
-#           inherit (pkgs.elmPackages) elm-format;
-#         };
-#         # emmet
-#         # erlang
-#         fennel = pkgs: builtins.attrValues {
-#           inherit (pkgs) fennel-ls fnlfmt;
-#           inherit (pkgs.luajitPackages) fennel;
-#         };
-#         # fish
-#         # fsharp
-#         # fortran
-#         # gleam
-#         # groovy
-#         # graphql
-#         # html
-#         # haskell
-#         # java
-#         # javascript = pkgs: builtins.attrValues { };
-#         # julia
-#         json = pkgs: builtins.attrValues {
-#           inherit (pkgs.nodePackages) jsonlint;
-#         };
-#         # kotlin
-#         nickel = pkgs: builtins.attrValues {
-#           inherit (pkgs) nickel nls;
-#         };
-#         # nvim
-#         # objectivc
-#         # powershell
-#         # protobuf
-#         # python
-#         # r
-#         # ruby
-#         # rust
-#         # scala
-#         # shell
-#         # sql
-#         # swift
-#         # terraform
-#         # toml
-#         # typescript
-#         vala = pkgs: builtins.attrValues {
-#           inherit (pkgs) uncrustify vala vala-lint vala-language-server xmlbird;
-#         };
-#         zig = pkgs: builtins.attrValues {
-#           inherit (pkgs) zls;
-#         # zsh = pkgs: builtins.attrValues {

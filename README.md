@@ -87,7 +87,7 @@ in `lua/lspconfig.lua`, `lua/nvim-lint.lua`, and `lua/conform.nvim`:
     - [ ] assembly
     - [ ] astro
     - [ ] awk 
-    - [ ] bash 
+    - [x] bash 
     - [ ] c
     - [ ] cpp
     - [ ] clojure
@@ -116,9 +116,10 @@ in `lua/lspconfig.lua`, `lua/nvim-lint.lua`, and `lua/conform.nvim`:
     - [ ] julia
     - [ ] json 
     - [x] lua 
-    - [ ] latex 
+    - [x] latex 
     - [ ] kotlin
     - [ ] nickel 
+    - [ ] markdown
     - [x] nix 
     - [ ] nvim
     - [ ] ocaml 
@@ -138,8 +139,8 @@ in `lua/lspconfig.lua`, `lua/nvim-lint.lua`, and `lua/conform.nvim`:
     - [ ] typescript
     - [ ] vala 
     - [ ] vhdl
-    - [ ] xml 
-    - [ ] yaml 
+    - [x] xml 
+    - [x] yaml 
     - [ ] zig 
     - [ ] zsh 
 ```
