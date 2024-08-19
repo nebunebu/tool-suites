@@ -18,7 +18,7 @@ require("lspconfig").nixd.setup({})
 
 -- configure lua and nix linters
 require("lint").linters_by_ft = {
- lua = { "selene" },
+ lua = { "luacheck" },
  nix = { "deadnix", "statix" },
 }
 
