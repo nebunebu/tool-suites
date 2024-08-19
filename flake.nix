@@ -29,6 +29,12 @@
           formatters = [ pkgs.shfmt ];
         };
 
+        json = pkgs: mkToolSuite {
+          # lsps = [ pkgs.lua-language-server ];
+          linters = [ pkgs.nodePackages.jsonlint ];
+          # formatters = [ pkgs.stylua ];
+        };
+
         lua = pkgs: mkToolSuite {
           lang = pkgs.lua;
           lsps = [ pkgs.lua-language-server ];
