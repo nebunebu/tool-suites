@@ -62,7 +62,7 @@
             formatters = [ pkgs.stylua ];
           };
 
-          latex = pkgs.lib.makeOverridable pkgs mkToolSuite {
+          latex = pkgs: mkToolSuite {
             lsps = [ pkgs.texlab ];
             linters = [ pkgs.texlivePackages.chktex ];
             formatters = [ pkgs.texlivePackages.latexindent ];
