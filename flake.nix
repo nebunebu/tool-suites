@@ -19,82 +19,86 @@
       ];
     in
     {
-      lib = forAllSystems (
-        system:
-        let
-          pkgs = inputs.nixpkgs.legacyPackages.${system};
-        in
-        rec {
-          # mkToolSuite = pkgs.lib.makeOverridable (
-          mkToolSuite =
-            { lang ? null
-            , lsps ? [ ]
-            , linters ? [ ]
-            , formatters ? [ ]
-            , other ? [ ]
-            }:
-            builtins.concatLists
-              [
-                (inputs.nixpkgs.lib.optionals (lang != null) [ lang ])
-                lsps
-                linters
-                formatters
-                other
-              ];
+      lib = forAllSystems
+        (
+          system:
+          let
+            pkgs = inputs.nixpkgs.legacyPackages.${system};
+          in
+          rec {
+            mkToolSuite = pkgs.lib.makeOverridable
+              (
+                { lang ? null
+                , lsps ? [ ]
+                , linters ? [ ]
+                , formatters ? [ ]
+                , other ? [ ]
+                }:
+                {
+                  inherit lang lsps linters formatters other;
+                  use = builtins.concatLists [
+                    (inputs.nixpkgs.lib.optionals (lang != null) [ lang ])
+                    lsps
+                    linters
+                    formatters
+                    other
+                  ];
+                }
+              );
 
-          bash = pkgs: mkToolSuite {
-            lang = pkgs.bash;
-            lsps = [ pkgs.nodePackages.bash-language-server ];
-            linters = [ pkgs.shellcheck ];
-            formatters = [ pkgs.shfmt ];
-          };
+            bash = pkgs: mkToolSuite {
+              lang = pkgs.bash;
+              lsps = [ pkgs.nodePackages.bash-language-server ];
+              linters = [ pkgs.shellcheck ];
+              formatters = [ pkgs.shfmt ];
+            };
 
-          json = pkgs: mkToolSuite {
-            lsps = [ ];
-            linters = [ pkgs.nodePackages.jsonlint ];
-            formatters = [ ];
-          };
+            json = pkgs: mkToolSuite {
+              lsps = [ ];
+              linters = [ pkgs.nodePackages.jsonlint ];
+              formatters = [ ];
+            };
 
-          lua = pkgs: mkToolSuite {
-            lang = pkgs.lua;
-            lsps = [ pkgs.lua-language-server ];
-            linters = [ pkgs.luajitPackages.luacheck ];
-            formatters = [ pkgs.stylua ];
-          };
+            lua = pkgs: mkToolSuite {
+              lang = pkgs.lua;
+              lsps = [ pkgs.lua-language-server ];
+              linters = [ pkgs.luajitPackages.luacheck ];
+              formatters = [ pkgs.stylua ];
+            };
 
-          latex = pkgs: mkToolSuite {
-            lsps = [ pkgs.texlab ];
-            linters = [ pkgs.texlivePackages.chktex ];
-            formatters = [ pkgs.texlivePackages.latexindent ];
-          };
+            latex = pkgs: mkToolSuite {
+              lsps = [ pkgs.texlab ];
+              linters = [ pkgs.texlivePackages.chktex ];
+              formatters = [ pkgs.texlivePackages.latexindent ];
+            };
 
-          nix = pkgs: mkToolSuite {
-            lsps = [ pkgs.nixd ];
-            linters = [ pkgs.statix pkgs.deadnix ];
-            formatters = [ pkgs.nixfmt-rfc-style ];
-            # other = [ pkgs.nixdoc ];
-          };
+            nix = pkgs: mkToolSuite {
+              lsps = [ pkgs.nixd ];
+              linters = [ pkgs.statix pkgs.deadnix ];
+              formatters = [ pkgs.nixfmt-rfc-style ];
+              # other = [ pkgs.nixdoc ];
+            };
 
-          # ocaml = pkgs: mkToolSuite {
-          #   lang = pkgs.ocaml;
-          #   lsps = [ pkgs.ocamlPackages.ocaml-lsp ];
-          #   formatters = [ pkgs.ocamlPackages.ocamlformat pkgs.ocamlPackages.ocp-indent ];
-          #   other = [ pkgs.opam pkgs.ocamlPackages.utop ];
-          # };
+            # ocaml = pkgs: mkToolSuite {
+            #   lang = pkgs.ocaml;
+            #   lsps = [ pkgs.ocamlPackages.ocaml-lsp ];
+            #   formatters = [ pkgs.ocamlPackages.ocamlformat pkgs.ocamlPackages.ocp-indent ];
+            #   other = [ pkgs.opam pkgs.ocamlPackages.utop ];
+            # };
 
-          xml = pkgs: mkToolSuite {
-            lsps = [ pkgs.lemminx ];
-            linters = [ pkgs.libxml2 ]; # provides xmllint
-            formatters = [ pkgs.xmlformat ];
-          };
+            xml = pkgs: mkToolSuite {
+              lsps = [ pkgs.lemminx ];
+              linters = [ pkgs.libxml2 ]; # provides xmllint
+              formatters = [ pkgs.xmlformat ];
+            };
 
-          yaml = pkgs: mkToolSuite {
-            lsps = [ pkgs.yaml-language-server ];
-            linters = [ pkgs.yamllint ];
-            formatters = [ pkgs.yamlfmt ];
-          };
-        }
-      );
+            yaml = pkgs: mkToolSuite {
+              lsps = [ pkgs.yaml-language-server ];
+              linters = [ pkgs.yamllint ];
+              formatters = [ pkgs.yamlfmt ];
+            };
+          }
+        );
 
       checks = forAllSystems (
         system:
@@ -128,8 +132,14 @@
           default = pkgs.mkShell {
             name = "dev-environments";
             packages = [
-              (inputs.self.lib.${system}.lua pkgs)
-              (inputs.self.lib.${system}.nix pkgs)
+              ((inputs.self.lib.${system}.lua pkgs).override
+                {
+                  linters = [ pkgs.cowsay ];
+                  formatters = (inputs.self.lib.${system}.lua pkgs).formatters ++ [ pkgs.hello ];
+                }).use
+
+              # (inputs.self.lib.${system}.lua pkgs).use
+              (inputs.self.lib.${system}.nix pkgs).use
             ];
           };
         }
