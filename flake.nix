@@ -25,7 +25,8 @@
           pkgs = inputs.nixpkgs.legacyPackages.${system};
         in
         rec {
-          mkToolSuite = pkgs.lib.makeOverridable (
+          # mkToolSuite = pkgs.lib.makeOverridable (
+          mkToolSuite =
             { lang ? null
             , lsps ? [ ]
             , linters ? [ ]
@@ -39,8 +40,7 @@
                 linters
                 formatters
                 other
-              ]
-          );
+              ];
 
           bash = pkgs: mkToolSuite {
             lang = pkgs.bash;
