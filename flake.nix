@@ -130,7 +130,6 @@
             packages = [
               (inputs.self.lib.${system}.lua pkgs)
               (inputs.self.lib.${system}.nix pkgs)
-              # (inputs.self.lib.git pkgs)
             ];
           };
         }
