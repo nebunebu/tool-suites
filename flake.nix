@@ -50,9 +50,9 @@
           };
 
           json = pkgs: mkToolSuite {
-            # lsps = [ pkgs.lua-language-server ];
+            lsps = [ ];
             linters = [ pkgs.nodePackages.jsonlint ];
-            # formatters = [ pkgs.stylua ];
+            formatters = [ ];
           };
 
           lua = pkgs: mkToolSuite {
