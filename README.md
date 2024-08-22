@@ -3,33 +3,20 @@
 A simple library that consolidates packages into flake
 outputs for use in devShells.
 
+## Why?
+
+Nix users can create development environments with the [pkgs.mkShell](https://ryantm.github.io/nixpkgs/builders/special/mkshell/)
+function. Given this, when using a text-editor like neovim you can declare your
+language-specific linters, formatters, and language servers within a devShell.
+
+This flake collects packages by language for use in these devShells.
+
 ## Usage
 
-Configure language server, formatter, and linter setups
-in your text editor's configuration, and make the relevant
-language servers, formatters and linters available within
-a devshell with a nix flake. In the example below lspconfig,
-nvim-lint, and conform are used to do this.
-
-```lua
--- configure lua and nix lang servers
-require("lspconfig").lua_ls.setup({})
-require("lspconfig").nixd.setup({})
-
--- configure lua and nix linters
-require("lint").linters_by_ft = {
- lua = { "luacheck" },
- nix = { "deadnix", "statix" },
-}
-
--- configure lua and nix formatters
-require("conform").setup({
- formatters_by_ft = {
-  lua = { "stylua" },
-  nix = { "nixfmt" },
- },
-})
-```
+> [!Note] This flake is merely for the installation of tools such as linters,
+> formatters, and language servers. It is agnostic as to what text editor you
+> use and by what means you manage and configure these language servers,
+> linters, and formatters
 
 ```nix
 {
@@ -62,8 +49,25 @@ require("conform").setup({
           default = pkgs.mkShell {
             name = "exampleShell";
             packages = [
-              (inputs.dev-environments.lib.lua pkgs)
-              (inputs.dev-environments.lib.nix pkgs)
+              # Use the nix tool-suite as it is defined
+              (inputs.dev-environments.lib.${system}.nix pkgs).use
+
+
+              # Override the lsp attribute of the nix tool-suite to use
+              # nil instead of nixd
+
+              ((inputs.dev-environments.lib.${system}.nix pkgs).override
+                {
+                  lsps = [ pkgs.nil ];
+                }).use
+
+              # Override the linters attribute to also include nix-lint
+              ((inputs.dev-environments.lib.${system}.nix pkgs).override
+                {
+                  linters = [ pkgs.cowsay ];
+                  formatters = (inputs.dev-environments.lib.${system}.nix pkgs).formatters 
+                    ++ [ pkgs.nix-lint ];
+                }).use
             ];
           };
         }
