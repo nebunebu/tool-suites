@@ -88,7 +88,7 @@
       md =
         { pkgs }:
         pkgs.lib.mkToolSuite {
-          langServers = [ pkgs.markdown_oxide ];
+          langServers = [ pkgs.markdown-oxide ];
           linters = [ pkgs.mardownlint-cli ];
           formatters = [ pkgs.mardownlint-cli ];
         };
@@ -104,7 +104,6 @@
           formatters = [ pkgs.nixfmt-rfc-style ];
           # other = [ pkgs.nixdoc ];
         };
-
 
       nvim-tools =
         { pkgs }:
