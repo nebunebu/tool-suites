@@ -108,17 +108,17 @@ Feel free to contribute.
 
 ## Tool Suites
 
-| suite  |             |            |
-| ------ | ----------- | ---------- |
-| *bash* |             |            |
-|        | langs       | bash       |
-|        | langServers | bashls     |
-|        | linters     | shellcheck |
-|        | formatters  | shfmt      |
-| *json* |             |            |
-|        | langServers | jsonls     |
-|        | linters     | jsonlint   |
-|        | formatters  | fixjson    |
+| suite    |               |            |
+| -------- | ------------- | ---------- |
+| **bash** |               |            |
+|          | *langs*       | bash       |
+|          | *langServers* | bashls     |
+|          | *linters*     | shellcheck |
+|          | *formatters*  | shfmt      |
+| **json** |               |            |
+|          | *langServers* | jsonls     |
+|          | *linters*     | jsonlint   |
+|          | *formatters*  | fixjson    |
 
 <!-- | html        |                | -->
 <!-- | ----------- | -------------- | -->
