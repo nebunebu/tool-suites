@@ -24,7 +24,7 @@ such packages together into flake outputs for convenience.
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    dev-environments = {
+    tool-suite = {
       url = "github:nebunebu/tool-suites";
     };
   };
