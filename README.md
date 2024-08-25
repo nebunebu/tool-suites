@@ -102,13 +102,9 @@ devShells = builtins.mapAttrs
   inputs.nixpkgs.legacyPackages;
 ```
 
-## Contributing
-
-Feel free to contribute.
-
 ## Tool Suites
 
-| suite    |               |            |
+|          |               |            |
 | -------- | ------------- | ---------- |
 | **bash** |               |            |
 |          | *langs*       | bash       |
@@ -156,6 +152,10 @@ Feel free to contribute.
 <!-- | langServers | yamlls   | -->
 <!-- | linters     | yamllint | -->
 <!-- | formatters  | yamlfmt  | -->
+
+## Contributing
+
+Feel free to contribute.
 
 ## TODO
 
