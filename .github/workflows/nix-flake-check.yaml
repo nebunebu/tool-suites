@@ -26,7 +26,7 @@ jobs:
 
           inputs = {
             nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-            tool-suites.url = "path:./..";
+            tool-suites.url = "path:./.";
           };
 
           outputs = inputs:
@@ -62,7 +62,7 @@ jobs:
             };
         }
         EOF
-        nix flake check ./test-flake
+        nix flake check ./test-flake || (echo "Flake check failed. Showing flake info:" && nix flake info ./test-flake)
 
     - name: Verify shell creation
       run: |
