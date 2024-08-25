@@ -1,4 +1,4 @@
-# dev-environments
+# tool-suites
 
 A simple library that consolidates packages into flake
 outputs for use in devShells.
