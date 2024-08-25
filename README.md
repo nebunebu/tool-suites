@@ -60,45 +60,103 @@ such packages together into flake outputs for convenience.
 
 ## Customization
 
-<!-- The `flake.nix` defines a function `mkToolSuite` which accepts an attribute set -->
-<!-- with the attributes `langs`, `langServers`, `linters`, `formatters`, and -->
-<!-- `other`, all of which have a list value. There is no functional difference -->
-<!-- between adding packages to any of these attribute-values, and they are only -->
-<!-- for the sake of organization. -->
-<!---->
-<!-- These values can be overrode to modify the packages present in any given -->
-<!-- tool-suite. For instance, -->
-<!---->
-<!-- ```nix -->
-<!-- packages = [ -->
-<!-- (inputs.tool-suites.lib.${system}.nix pkgs).override { -->
-<!--   langServers = [ pkgs.nil ]; -->
-<!--   }).use -->
-<!-- ]; -->
-<!-- ``` -->
-<!---->
-<!-- will override the default `nixd` language server in the nix tool-suite with the -->
-<!-- `nil` language server. -->
-<!---->
-<!-- > [!Caution] -->
-<!-- > An attribute overriden with the method above will be replaced by the override. -->
-<!---->
-<!-- You can extend what values an attribute contains as follows: -->
-<!---->
-<!-- ```nix -->
-<!-- ((inputs.tool-suites.lib.${system}.nix pkgs).override { -->
-<!--   linters = (inputs.tool-suites.lib.${system}.nix pkgs).linters -->
-<!--     ++ [ pkgs.nix-lint ]; -->
-<!-- }).use -->
-<!-- ``` -->
-<!---->
-<!-- The above adds the `nix-lint` package to the defaults linters in the nix -->
-<!-- tool-suite, which are `statix` and `deadnix`. -->
-<!---->
+<!-- FIX: elaborate for clarity -->
+
+```nix
+devShells = builtins.mapAttrs
+  (
+    system: _:
+      let
+        pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = [
+            inputs.tool-suites.overlays.default
+
+            # Overriding bash for all of pkgs
+            (final: prev: { bash = prev.bash.overrideAttrs {name = "my-bash";};})
+          ];
+        };
+      in
+      {
+        default = pkgs.mkShell {
+          name = "testShell";
+          packages = [
+            # Overriding bash for only this recipe
+            (inputs.tool-suite.recipe.bash { pkgs = pkgs.extend (final: prev:
+              { bash = prev.bash.overrideAttrs {name = "my-bash";};}
+            );})
+
+            # Overriding bash (but only the package, not its use as a dependency)
+            (inputs.tool-suite.recipe.bash { 
+              pkgs = pkgs // { bash = prev.bash.overrideAttrs {name = "my-bash";};};
+            })
+
+            # If recipes has a "bash" formal arg:
+            (inputs.tool-suite.recipe.bash
+              { bash = prev.bash.overrideAttrs {name = "my-bash";};}
+            )
+          ];
+        };
+      }
+  )
+  inputs.nixpkgs.legacyPackages;
+```
 
 ## Contributing
 
 Feel free to contribute.
+
+## Tool Suites
+
+| bash        |            |
+| ----------- | ---------- |
+| langs       | bash       |
+| langServers | bashls     |
+| linters     | shellcheck |
+| formatters  | shfmt      |
+
+| json        |          |
+| ----------- | -------- |
+| langServers | jsonls   |
+| linters     | jsonlint |
+| formatters  | fixjson  |
+
+| html        |                |
+| ----------- | -------------- |
+| langServers | htmlls         |
+| linters     | htmlhint       |
+| formatters  | htmlbeautifier |
+
+| lua         |          |
+| ----------- | -------- |
+| langs       | lua      |
+| langServers | lua-ls   |
+| linters     | luacheck |
+| formatters  | stylua   |
+
+| nix         |                  |
+| ----------- | ---------------- |
+| langServers | nixd             |
+| linters     | statix, deadnix  |
+| formatters  | nixfmt-rfc-style |
+
+| tex         |             |
+| ----------- | ----------- |
+| langServers | texlab      |
+| linters     | chktex      |
+| formatters  | latexindent |
+
+| xml         |           |
+| ----------- | --------- |
+| langServers | lemminx   |
+| linters     | xmllint   |
+| formatters  | xmlformat |
+
+| yaml        |          |
+| ----------- | -------- |
+| langServers | yamlls   |
+| linters     | yamllint |
+| formatters  | yamlfmt  |
 
 ## TODO
 
