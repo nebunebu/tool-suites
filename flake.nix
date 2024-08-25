@@ -85,14 +85,6 @@
           formatters = [ pkgs.stylua ];
         };
 
-      latex =
-        { pkgs }:
-        pkgs.lib.mkToolSuite {
-          langServers = [ pkgs.texlab ];
-          linters = [ pkgs.texlivePackages.chktex ];
-          formatters = [ pkgs.texlivePackages.latexindent ];
-        };
-
       nix =
         { pkgs }:
         pkgs.lib.mkToolSuite {
@@ -103,6 +95,14 @@
           ];
           formatters = [ pkgs.nixfmt-rfc-style ];
           # other = [ pkgs.nixdoc ];
+        };
+
+      tex =
+        { pkgs }:
+        pkgs.lib.mkToolSuite {
+          langServers = [ pkgs.texlab ];
+          linters = [ pkgs.texlivePackages.chktex ];
+          formatters = [ pkgs.texlivePackages.latexindent ];
         };
 
       # ocaml = pkgs: mkToolSuite {
@@ -132,12 +132,12 @@
     overlays.default = final: prev: {
       lib = prev.lib // {
         mkToolSuite = (
-          {
-            langs ? [ ],
-            langServers ? [ ],
-            linters ? [ ],
-            formatters ? [ ],
-            other ? [ ],
+          { langs ? [ ]
+          , langServers ? [ ]
+          , linters ? [ ]
+          , formatters ? [ ]
+          , other ? [ ]
+          ,
           }:
           builtins.concatLists [
             langs
