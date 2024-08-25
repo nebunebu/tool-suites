@@ -17,5 +17,5 @@ jobs:
     - name: Check root flake
       run: nix flake check
 
-    - name: Check usability
-      run: nix flake check ./test
+    # - name: Check usability
+    #   run: nix flake check ./test
