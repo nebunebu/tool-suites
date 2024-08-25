@@ -219,7 +219,7 @@
             other
           ];
       };
-      tool-suite = builtins.mapAttrs (recipe: final.callPackage recipe { }) inputs.self.recipes;
+      tool-suite = builtins.mapAttrs (name: recipe: final.callPackage recipe { }) inputs.self.recipes;
     };
   };
 }
