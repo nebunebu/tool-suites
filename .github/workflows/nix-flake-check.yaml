@@ -62,7 +62,7 @@ jobs:
             };
         }
         EOF
-        nix flake check ./test-flake || (echo "Flake check failed. Showing flake info:" && nix flake info ./test-flake)
+        nix flake check ./test-flake || (echo "Flake check failed. Showing flake metadata:" && nix flake metadata ./test-flake)
 
     - name: Verify shell creation
       run: |
