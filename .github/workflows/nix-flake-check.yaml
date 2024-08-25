@@ -19,7 +19,8 @@ jobs:
 
     - name: Check tool suites usability
       run: |
-        cat << EOF > test-flake.nix
+        mkdir test-flake
+        cat << EOF > test-flake/flake.nix
         {
           description = "tool-suites test";
 
