@@ -85,6 +85,14 @@
           formatters = [ pkgs.stylua ];
         };
 
+      md =
+        { pkgs }:
+        pkgs.lib.mkToolSuite {
+          langServers = [ pkgs.markdown_oxide ];
+          linters = [ pkgs.mardownlint-cli ];
+          formatters = [ pkgs.mardownlint-cli ];
+        };
+
       nix =
         { pkgs }:
         pkgs.lib.mkToolSuite {
@@ -97,18 +105,17 @@
           # other = [ pkgs.nixdoc ];
         };
 
-      md =
-        { pkgs }:
-        pkgs.lib.mkToolSuite {
-          langServers = [ pkgs.markdown_oxide ];
-          linters = [ pkgs.mardownlint-cli ];
-          formatters = [ pkgs.mardownlint-cli ];
-        };
 
       nvim-tools =
         { pkgs }:
         pkgs.lib.mkToolSuite {
-          other = [ pkgs.ripgrep pkgs.curl ];
+          other = [
+            pkgs.curl
+            pkgs.direnv
+            pkgs.imagemagic
+            pkgs.luajitPackages.magick
+            pkgs.ripgrep
+          ];
         };
 
       tex =
