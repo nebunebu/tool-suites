@@ -28,17 +28,17 @@
           rec {
             mkToolSuite = pkgs.lib.makeOverridable
               (
-                { lang ? null
-                , lsps ? [ ]
+                { langs ? [ ]
+                , langServers ? [ ]
                 , linters ? [ ]
                 , formatters ? [ ]
                 , other ? [ ]
                 }:
                 {
-                  inherit lang lsps linters formatters other;
+                  inherit langs langServers linters formatters other;
                   use = builtins.concatLists [
-                    (inputs.nixpkgs.lib.optionals (lang != null) [ lang ])
-                    lsps
+                    langs
+                    langServers
                     linters
                     formatters
                     other
@@ -47,68 +47,53 @@
               );
 
             bash = pkgs: mkToolSuite {
-              lang = pkgs.bash;
-              lsps = [ pkgs.nodePackages.bash-language-server ];
+              langs = pkgs.bash;
+              langServers = [ pkgs.nodePackages.bash-langsuage-server ];
               linters = [ pkgs.shellcheck ];
               formatters = [ pkgs.shfmt ];
             };
 
             json = pkgs: mkToolSuite {
-              lsps = [
-                (pkgs.vscode-langservers-extracted.override
-                  {
-                    buildPhase = ''
-                      extensions="${pkgs.vscodium.src}/resources/app/extensions"
-                      npx babel $extensions/json-language-features/server/dist/node \
-                        --out-dir lib/json-language-server/node/
-                    '';
-                    installPhase = ''
-                      mkdir -p $out/lib
-                      cp -r lib/json-language-server $out/lib/
-                      mkdir -p $out/bin
-                      ln -s $out/lib/json-language-server/node/jsonServerMain.js $out/bin/vscode-json-languageserver
-                    '';
-                  })
-              ];
+              langServers = [ pkgs.vscode-langsservers-extracted ]; # FIX: should use only jsonls
               linters = [ pkgs.nodePackages.jsonlint ];
               formatters = [ pkgs.fixjson ];
             };
 
             lua = pkgs: mkToolSuite {
-              lang = pkgs.lua;
-              lsps = [ pkgs.lua-language-server ];
+              langs = pkgs.lua;
+              langServers = [ pkgs.lua-langsuage-server ];
               linters = [ pkgs.luajitPackages.luacheck ];
               formatters = [ pkgs.stylua ];
             };
 
             latex = pkgs: mkToolSuite {
-              lsps = [ pkgs.texlab ];
+              langServers = [ pkgs.texlab ];
               linters = [ pkgs.texlivePackages.chktex ];
               formatters = [ pkgs.texlivePackages.latexindent ];
             };
 
             nix = pkgs: mkToolSuite {
-              lsps = [ pkgs.nixd ];
+              langServers = [ pkgs.nixd ];
               linters = [ pkgs.statix pkgs.deadnix ];
               formatters = [ pkgs.nixfmt-rfc-style ];
               # other = [ pkgs.nixdoc ];
             };
 
             # ocaml = pkgs: mkToolSuite {
-            #   lang = pkgs.ocaml;
-            #   lsps = [ pkgs.ocamlPackages.ocaml-lsp ];
+            #   langs = pkgs.ocaml;
+            #   langServers = [ pkgs.ocamlPackages.ocaml-lsp ];
             #   formatters = [ pkgs.ocamlPackages.ocamlformat pkgs.ocamlPackages.ocp-indent ];
             #   other = [ pkgs.opam pkgs.ocamlPackages.utop ];
             # };
 
             xml = pkgs: mkToolSuite {
-              lsps = [ pkgs.lemminx ];
+              langServers = [ pkgs.lemminx ];
               linters = [ pkgs.libxml2 ]; # provides xmllint
               formatters = [ pkgs.xmlformat ];
             };
 
             yaml = pkgs: mkToolSuite {
-              lsps = [ pkgs.yaml-language-server ];
+              langServers = [ pkgs.yaml-langsuage-server ];
               linters = [ pkgs.yamllint ];
               formatters = [ pkgs.yamlfmt ];
             };
@@ -147,13 +132,6 @@
           default = pkgs.mkShell {
             name = "dev-environments";
             packages = [
-              ((inputs.self.lib.${system}.lua pkgs).override
-                {
-                  linters = [ pkgs.cowsay ];
-                  formatters = (inputs.self.lib.${system}.lua pkgs).formatters ++ [ pkgs.hello ];
-                }).use
-
-              # (inputs.self.lib.${system}.lua pkgs).use
               (inputs.self.lib.${system}.nix pkgs).use
             ];
           };
