@@ -47,7 +47,7 @@
               );
 
             bash = pkgs: mkToolSuite {
-              langs = pkgs.bash;
+              langs = [ pkgs.bash ];
               langServers = [ pkgs.nodePackages.bash-langsuage-server ];
               linters = [ pkgs.shellcheck ];
               formatters = [ pkgs.shfmt ];
@@ -60,7 +60,7 @@
             };
 
             lua = pkgs: mkToolSuite {
-              langs = pkgs.lua;
+              langs = [ pkgs.lua ];
               langServers = [ pkgs.lua-langsuage-server ];
               linters = [ pkgs.luajitPackages.luacheck ];
               formatters = [ pkgs.stylua ];
