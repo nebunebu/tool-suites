@@ -40,7 +40,7 @@ such packages together into flake outputs for convenience.
           in
           {
             default = pkgs.mkShell {
-              name = "testShell";
+              name = "exampleShell";
               packages = [
                 pkgs.tool-suite.bash
                 pkgs.tool-suite.html
