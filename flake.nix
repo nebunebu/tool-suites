@@ -54,7 +54,31 @@
             };
 
             json = pkgs: mkToolSuite {
-              langServers = [ pkgs.vscode-langservers-extracted ]; # FIX: should use only jsonls
+              # langServers = [ pkgs.vscode-langservers-extracted ]; # FIX: should use only jsonls
+              langServers = [
+                (pkgs.vscode-langservers-extracted.overrideAttrs (_: {
+                  buildPhase =
+                    let
+                      extensions =
+                        if pkgs.stdenv.isDarwin
+                        then "../VSCodium.app/Contents/Resources/app/extensions"
+                        else "../resources/app/extensions";
+                    in
+                    ''
+                      npx babel ${extensions}/json-language-features/server/dist/node \
+                        --out-dir lib/json-language-server/node/
+                    '';
+                  installPhase = ''
+                    mkdir -p $out/bin $out/lib
+                    cp -r lib/json-language-server $out/lib/
+                    cat > $out/bin/vscode-json-language-server <<EOF
+                    #!/bin/sh
+                    exec ${pkgs.nodejs}/bin/node $out/lib/json-language-server/node/jsonServerMain.js "\$@"
+                    EOF
+                    chmod +x $out/bin/vscode-json-language-server
+                  '';
+                }))
+              ];
               linters = [ pkgs.nodePackages.jsonlint ];
               formatters = [ pkgs.fixjson ];
             };
