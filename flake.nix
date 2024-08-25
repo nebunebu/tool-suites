@@ -3,6 +3,7 @@
 
   outputs = inputs: {
     recipes = {
+
       bash =
         { pkgs }:
         pkgs.lib.mkToolSuite {
@@ -10,6 +11,57 @@
           langServers = [ pkgs.nodePackages.bash-language-server ];
           linters = [ pkgs.shellcheck ];
           formatters = [ pkgs.shfmt ];
+        };
+
+      css =
+        { pkgs }:
+        pkgs.lib.mkToolSuite {
+          langServers = [
+            # cssmodules_ls
+            # css-variables
+
+            # cssls
+            (pkgs.vscode-langservers-extracted.overrideAttrs (_: {
+              buildPhase =
+                let
+                  extensions =
+                    if pkgs.stdenv.isDarwin then
+                      "../VSCodium.app/Contents/Resources/app/extensions"
+                    else
+                      "../resources/app/extensions";
+                in
+                ''
+                  npx babel ${extensions}/json-language-features/server/dist/node \
+                    --out-dir lib/css-language-server/node/
+                '';
+              installPhase = ''
+                mkdir -p $out/bin $out/lib
+                cp -r lib/json-language-server $out/lib/
+                cat > $out/bin/vscode-css-language-server <<EOF
+                #!/bin/sh
+                exec ${pkgs.nodejs}/bin/node $out/lib/css-language-server/node/jsonServerMain.js "\$@"
+                EOF
+                chmod +x $out/bin/vscode-css-language-server
+              '';
+            }))
+          ];
+          linters = [ pkgs.stylelint ];
+          formatters = [ pkgs.stylelint ];
+        };
+
+      gjs =
+        { pkgs }:
+        pkgs.lib.mkToolSuite {
+          langs = [ pkgs.gjs ];
+        };
+
+      js =
+        { pkgs }:
+        pkgs.lib.mkToolSuite {
+          langs = [ pkgs.nodePackages.npm ];
+          langServers = [ pkgs.eslint_d ];
+          linters = [ ];
+          formatters = [ ];
         };
 
       json =
@@ -151,7 +203,7 @@
 
     overlays.default = final: prev: {
       lib = prev.lib // {
-        mkToolSuite = (
+        mkToolSuite =
           { langs ? [ ]
           , langServers ? [ ]
           , linters ? [ ]
@@ -165,10 +217,9 @@
             linters
             formatters
             other
-          ]
-        );
+          ];
       };
-      tool-suite = builtins.mapAttrs (name: recipe: final.callPackage recipe { }) inputs.self.recipes;
+      tool-suite = builtins.mapAttrs (recipe: final.callPackage recipe { }) inputs.self.recipes;
     };
   };
 }
