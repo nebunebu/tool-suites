@@ -1,0 +1,68 @@
+name: "tool-suites test"
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: cachix/install-nix-action@v27
+      with:
+        github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Check root flake
+      run: nix flake check
+
+    - name: Check tool suites usability
+      run: |
+        cat << EOF > test-flake.nix
+        {
+          description = "tool-suites test";
+
+          inputs = {
+            nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+            tool-suites.url = "path:.";
+          };
+
+          outputs = inputs:
+            let
+              supportedSystems = [
+                "x86_64-linux"
+                "aarch64-linux"
+                "x86_64-darwin"
+                "aarch64-darwin"
+              ];
+              forAllSystems = inputs.nixpkgs.lib.genAttrs supportedSystems;
+            in
+            {
+              devShells = forAllSystems (
+                system:
+                let
+                  pkgs = inputs.nixpkgs.legacyPackages.\${system};
+                in
+                {
+                  default = pkgs.mkShell {
+                    name = "testShell";
+                    packages = [
+                      (inputs.tool-suites.lib.\${system}.bash pkgs).use
+                      (inputs.tool-suites.lib.\${system}.lua pkgs).use
+                      (inputs.tool-suites.lib.\${system}.latex pkgs).use
+                      (inputs.tool-suites.lib.\${system}.nix pkgs).use
+                      (inputs.tool-suites.lib.\${system}.xml pkgs).use
+                      (inputs.tool-suites.lib.\${system}.yaml pkgs).use
+                    ];
+                  };
+                }
+              );
+            };
+        }
+        EOF
+        nix flake check test-flake.nix
+
+    - name: Verify shell creation
+      run: |
+        nix develop test-flake.nix --command echo "Shell successfully created"
