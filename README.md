@@ -107,54 +107,42 @@ devShells = builtins.mapAttrs
 
 ## Tool Suites
 
-|          |               |            |
-| -------- | ------------- | ---------- |
-| **bash** |               |            |
-|          | *langs*       | bash       |
-|          | *langServers* | bashls     |
-|          | *linters*     | shellcheck |
-|          | *formatters*  | shfmt      |
-| **json** |               |            |
-|          | *langServers* | jsonls     |
-|          | *linters*     | jsonlint   |
-|          | *formatters*  | fixjson    |
-
-<!-- | html        |                | -->
-<!-- | ----------- | -------------- | -->
-<!-- | langServers | htmlls         | -->
-<!-- | linters     | htmlhint       | -->
-<!-- | formatters  | htmlbeautifier | -->
-<!---->
-<!-- | lua         |          | -->
-<!-- | ----------- | -------- | -->
-<!-- | langs       | lua      | -->
-<!-- | langServers | lua-ls   | -->
-<!-- | linters     | luacheck | -->
-<!-- | formatters  | stylua   | -->
-<!---->
-<!-- | nix         |                  | -->
-<!-- | ----------- | ---------------- | -->
-<!-- | langServers | nixd             | -->
-<!-- | linters     | statix, deadnix  | -->
-<!-- | formatters  | nixfmt-rfc-style | -->
-<!---->
-<!-- | tex         |             | -->
-<!-- | ----------- | ----------- | -->
-<!-- | langServers | texlab      | -->
-<!-- | linters     | chktex      | -->
-<!-- | formatters  | latexindent | -->
-<!---->
-<!-- | xml         |           | -->
-<!-- | ----------- | --------- | -->
-<!-- | langServers | lemminx   | -->
-<!-- | linters     | xmllint   | -->
-<!-- | formatters  | xmlformat | -->
-<!---->
-<!-- | yaml        |          | -->
-<!-- | ----------- | -------- | -->
-<!-- | langServers | yamlls   | -->
-<!-- | linters     | yamllint | -->
-<!-- | formatters  | yamlfmt  | -->
+|          |               |                  |
+| -------- | ------------- | ---------------- |
+| **bash** |               |                  |
+|          | *langs*       | bash             |
+|          | *langServers* | bashls           |
+|          | *linters*     | shellcheck       |
+|          | *formatters*  | shfmt            |
+| **json** |               |                  |
+|          | *langServers* | jsonls           |
+|          | *linters*     | jsonlint         |
+|          | *formatters*  | fixjson          |
+| **html** |               |                  |
+|          | *langServers* | htmlls           |
+|          | *linters*     | htmlhint         |
+|          | *formatters*  | htmlbeautifier   |
+| **lua**  |               |                  |
+|          | *langs*       | lua              |
+|          | *langServers* | luals            |
+|          | *linters*     | luacheck         |
+|          | *formatters*  | stylua           |
+| **nix**  |               |                  |
+|          | *langServers* | nixd             |
+|          | *linters*     | statix, deadnix  |
+|          | *formatters*  | nixfmt-rfc-style |
+| **tex**  |               |                  |
+|          | *langServers* | texlab           |
+|          | *linters*     | chktex           |
+|          | *formatters*  | latexindent      |
+| **xml**  |               |                  |
+|          | *langServers* | lemminx          |
+|          | *linters*     | xmllint          |
+|          | *formatters*  | xmlformat        |
+| **yaml** |               |                  |
+|          | *langServers* | yamlls           |
+|          | *linters*     | yamllint         |
+|          | *formatters*  | yamlfmt          |
 
 </details>
 
@@ -170,72 +158,70 @@ Feel free to contribute.
 
 ### Make tool-suites
 
-```txt
-    - [ ] ada
-    - [ ] agda
-    - [ ] aiken
-    - [ ] angularls
-    - [ ] ansibells
-    - [ ] antlersls
-    - [ ] assembly
-    - [ ] astro
-    - [ ] awk 
-    - [x] bash 
-    - [ ] c
-    - [ ] cpp
-    - [ ] clojure
-    - [ ] crystal 
-    - [ ] csharp
-    - [ ] d
-    - [ ] dart
-    - [ ] css 
-    - [ ] d
-    - [ ] docker
-    - [ ] elixir
-    - [ ] elm 
-    - [ ] emmet
-    - [ ] erlang
-    - [ ] fennel 
-    - [ ] fish
-    - [ ] fsharp
-    - [ ] fortran
-    - [ ] gleam
-    - [ ] groovy
-    - [ ] graphql
-    - [x] html
-    - [ ] haskell
-    - [ ] java
-    - [ ] javascript 
-    - [ ] julia
-    - [ ] json 
-    - [x] lua 
-    - [x] latex 
-    - [ ] kotlin
-    - [ ] nickel 
-    - [ ] markdown
-    - [x] nix 
-    - [ ] nvim
-    - [ ] ocaml 
-    - [ ] objectivc
-    - [ ] powershell
-    - [ ] protobuf
-    - [ ] python
-    - [ ] r
-    - [ ] ruby
-    - [ ] rust
-    - [ ] scala
-    - [ ] shell
-    - [ ] sql
-    - [ ] swift
-    - [ ] terraform
-    - [ ] toml
-    - [ ] typescript
-    - [ ] vala 
-    - [ ] vhdl
-    - [x] xml 
-    - [x] yaml 
-    - [ ] zig 
-    - [ ] zsh 
-```
+- [ ] ada
+- [ ] agda
+- [ ] aiken
+- [ ] angularls
+- [ ] ansibells
+- [ ] antlersls
+- [ ] assembly
+- [ ] astro
+- [ ] awk
+- [x] bash
+- [ ] c
+- [ ] cpp
+- [ ] clojure
+- [ ] crystal
+- [ ] csharp
+- [ ] d
+- [ ] dart
+- [ ] css
+- [ ] d
+- [ ] docker
+- [ ] elixir
+- [ ] elm
+- [ ] emmet
+- [ ] erlang
+- [ ] fennel
+- [ ] fish
+- [ ] fsharp
+- [ ] fortran
+- [ ] gleam
+- [ ] groovy
+- [ ] graphql
+- [x] html
+- [ ] haskell
+- [ ] java
+- [ ] javascript
+- [ ] julia
+- [ ] json
+- [x] lua
+- [x] latex
+- [ ] kotlin
+- [ ] nickel
+- [ ] markdown
+- [x] nix
+- [ ] nvim
+- [ ] ocaml
+- [ ] objectivc
+- [ ] powershell
+- [ ] protobuf
+- [ ] python
+- [ ] r
+- [ ] ruby
+- [ ] rust
+- [ ] scala
+- [ ] shell
+- [ ] sql
+- [ ] swift
+- [ ] terraform
+- [ ] toml
+- [ ] typescript
+- [ ] vala
+- [ ] vhdl
+- [x] xml
+- [x] yaml
+- [ ] zig
+- [ ] zsh
 
 </details>
