@@ -62,8 +62,8 @@ jobs:
             };
         }
         EOF
-        nix flake check test-flake.nix
+        nix flake check test-flake/flake.nix
 
     - name: Verify shell creation
       run: |
-        nix develop test-flake.nix --command echo "Shell successfully created"
+        nix develop test-flake/flake.nix --command echo "Shell successfully created"
