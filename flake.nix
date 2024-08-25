@@ -48,20 +48,20 @@
 
             bash = pkgs: mkToolSuite {
               langs = [ pkgs.bash ];
-              langServers = [ pkgs.nodePackages.bash-langsuage-server ];
+              langServers = [ pkgs.nodePackages.bash-language-server ];
               linters = [ pkgs.shellcheck ];
               formatters = [ pkgs.shfmt ];
             };
 
             json = pkgs: mkToolSuite {
-              langServers = [ pkgs.vscode-langsservers-extracted ]; # FIX: should use only jsonls
+              langServers = [ pkgs.vscode-langservers-extracted ]; # FIX: should use only jsonls
               linters = [ pkgs.nodePackages.jsonlint ];
               formatters = [ pkgs.fixjson ];
             };
 
             lua = pkgs: mkToolSuite {
               langs = [ pkgs.lua ];
-              langServers = [ pkgs.lua-langsuage-server ];
+              langServers = [ pkgs.lua-language-server ];
               linters = [ pkgs.luajitPackages.luacheck ];
               formatters = [ pkgs.stylua ];
             };
@@ -93,7 +93,7 @@
             };
 
             yaml = pkgs: mkToolSuite {
-              langServers = [ pkgs.yaml-langsuage-server ];
+              langServers = [ pkgs.yaml-language-server ];
               linters = [ pkgs.yamllint ];
               formatters = [ pkgs.yamlfmt ];
             };
