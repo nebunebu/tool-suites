@@ -108,55 +108,54 @@ Feel free to contribute.
 
 ## Tool Suites
 
-| bash        |            |
-| ----------- | ---------- |
-| langs       | bash       |
-| langServers | bashls     |
-| linters     | shellcheck |
-| formatters  | shfmt      |
+| suite  |             |            |
+| ------ | ----------- | ---------- |
+| *bash* |             |            |
+|        | langs       | bash       |
+|        | langServers | bashls     |
+|        | linters     | shellcheck |
+|        | formatters  | shfmt      |
+| *json* |             |            |
+|        | langServers | jsonls     |
+|        | linters     | jsonlint   |
+|        | formatters  | fixjson    |
 
-| json        |          |
-| ----------- | -------- |
-| langServers | jsonls   |
-| linters     | jsonlint |
-| formatters  | fixjson  |
-
-| html        |                |
-| ----------- | -------------- |
-| langServers | htmlls         |
-| linters     | htmlhint       |
-| formatters  | htmlbeautifier |
-
-| lua         |          |
-| ----------- | -------- |
-| langs       | lua      |
-| langServers | lua-ls   |
-| linters     | luacheck |
-| formatters  | stylua   |
-
-| nix         |                  |
-| ----------- | ---------------- |
-| langServers | nixd             |
-| linters     | statix, deadnix  |
-| formatters  | nixfmt-rfc-style |
-
-| tex         |             |
-| ----------- | ----------- |
-| langServers | texlab      |
-| linters     | chktex      |
-| formatters  | latexindent |
-
-| xml         |           |
-| ----------- | --------- |
-| langServers | lemminx   |
-| linters     | xmllint   |
-| formatters  | xmlformat |
-
-| yaml        |          |
-| ----------- | -------- |
-| langServers | yamlls   |
-| linters     | yamllint |
-| formatters  | yamlfmt  |
+<!-- | html        |                | -->
+<!-- | ----------- | -------------- | -->
+<!-- | langServers | htmlls         | -->
+<!-- | linters     | htmlhint       | -->
+<!-- | formatters  | htmlbeautifier | -->
+<!---->
+<!-- | lua         |          | -->
+<!-- | ----------- | -------- | -->
+<!-- | langs       | lua      | -->
+<!-- | langServers | lua-ls   | -->
+<!-- | linters     | luacheck | -->
+<!-- | formatters  | stylua   | -->
+<!---->
+<!-- | nix         |                  | -->
+<!-- | ----------- | ---------------- | -->
+<!-- | langServers | nixd             | -->
+<!-- | linters     | statix, deadnix  | -->
+<!-- | formatters  | nixfmt-rfc-style | -->
+<!---->
+<!-- | tex         |             | -->
+<!-- | ----------- | ----------- | -->
+<!-- | langServers | texlab      | -->
+<!-- | linters     | chktex      | -->
+<!-- | formatters  | latexindent | -->
+<!---->
+<!-- | xml         |           | -->
+<!-- | ----------- | --------- | -->
+<!-- | langServers | lemminx   | -->
+<!-- | linters     | xmllint   | -->
+<!-- | formatters  | xmlformat | -->
+<!---->
+<!-- | yaml        |          | -->
+<!-- | ----------- | -------- | -->
+<!-- | langServers | yamlls   | -->
+<!-- | linters     | yamllint | -->
+<!-- | formatters  | yamlfmt  | -->
 
 ## TODO
 
