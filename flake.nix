@@ -89,8 +89,8 @@
         { pkgs }:
         pkgs.lib.mkToolSuite {
           langServers = [ pkgs.markdown-oxide ];
-          linters = [ pkgs.mardownlint-cli ];
-          formatters = [ pkgs.mardownlint-cli ];
+          linters = [ pkgs.markdownlint-cli ];
+          formatters = [ pkgs.markdownlint-cli ];
         };
 
       nix =
