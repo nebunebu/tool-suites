@@ -1,31 +1,31 @@
 # tool-suites
 
 A simple library that consolidates packages into flake
-outputs for use in devShells.
+outputs.
 
 ## Why?
 
 Nix users can create development environments with the [pkgs.mkShell](https://ryantm.github.io/nixpkgs/builders/special/mkshell/)
-function. Given this, when using a text-editor like neovim you can declare your
-language-specific linters, formatters, and language servers within a devShell.
-
-This flake collects packages by language for use in these devShells.
+function. Often there are collections of packages routinely added to such a
+developer environment. For instance a target language and linters, formatters,
+and language servers for that target language. This repository aims to collect
+such packages together into flake outputs for convenience.
 
 ## Usage
 
-> [!Note] This flake is merely for the installation of tools such as linters,
+> [!Note]
+> This flake is merely for the installation of tools such as linters,
 > formatters, and language servers. It is agnostic as to what text editor you
-> use and by what means you manage and configure these language servers,
-> linters, and formatters
+> use and by what means you configure these tools for your editor
 
 ```nix
 {
-  description = "dev-enviornments example usage";
+  description = "tool-suites example usage";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     dev-environments = {
-      url = "github:nebunebu/dev-environments";
+      url = "github:nebunebu/tool-suites";
     };
   };
 
@@ -49,25 +49,8 @@ This flake collects packages by language for use in these devShells.
           default = pkgs.mkShell {
             name = "exampleShell";
             packages = [
-              # Use the nix tool-suite as it is defined
-              (inputs.dev-environments.lib.${system}.nix pkgs).use
-
-
-              # Override the lsp attribute of the nix tool-suite to use
-              # nil instead of nixd
-
-              ((inputs.dev-environments.lib.${system}.nix pkgs).override
-                {
-                  lsps = [ pkgs.nil ];
-                }).use
-
-              # Override the linters attribute to also include nix-lint
-              ((inputs.dev-environments.lib.${system}.nix pkgs).override
-                {
-                  linters = [ pkgs.cowsay ];
-                  formatters = (inputs.dev-environments.lib.${system}.nix pkgs).formatters 
-                    ++ [ pkgs.nix-lint ];
-                }).use
+              (inputs.tool-suites.lib.${system}.nix pkgs).use
+              (inputs.tool-suites.lib.${system}.lua pkgs).use
             ];
           };
         }
@@ -76,10 +59,50 @@ This flake collects packages by language for use in these devShells.
 }
 ```
 
+## Customization
+
+The `flake.nix` defines a function `mkToolSuite` which accepts an attribute set
+with the attributes `langs`, `langServers`, `linters`, `formatters`, and
+`other`, all of which have a list value. There is no functional difference
+between adding packages to any of these attribute-values, and they are only
+for the sake of organization.
+
+These values can be overrode to modify the packages present in any given
+tool-suite. For instance,
+
+```nix
+packages = [
+(inputs.tool-suites.lib.${system}.nix pkgs).override {
+  langServers = [ pkgs.nil ];
+  }).use
+];
+```
+
+will override the default `nixd` language server in the nix tool-suite with the
+`nil` language server.
+
+> [!Caution]
+> An attribute overriden with the method above will be replaced by the override.
+
+You can extend what values an attribute contains as follows:
+
+```nix
+((inputs.tool-suites.lib.${system}.nix pkgs).override {
+  linters = (inputs.tool-suites.lib.${system}.nix pkgs).linters
+    ++ [ pkgs.nix-lint ];
+}).use
+```
+
+The above adds the `nix-lint` package to the defaults linters in the nix
+tool-suite, which are `statix` and `deadnix`.
+
+## Contributing
+
+Feel free to contribute.
+
 ## TODO
 
-Create relevant function calls for the following and example configurations
-in `examples/lspconfig.lua`, `examples/nvim-lint.lua`, and `examples/conform.nvim`:
+### Make tool-suites
 
 ```txt
     - [ ] ada
@@ -113,7 +136,7 @@ in `examples/lspconfig.lua`, `examples/nvim-lint.lua`, and `examples/conform.nvi
     - [ ] gleam
     - [ ] groovy
     - [ ] graphql
-    - [ ] html
+    - [x] html
     - [ ] haskell
     - [ ] java
     - [ ] javascript 
