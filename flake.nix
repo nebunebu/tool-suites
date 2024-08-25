@@ -54,9 +54,24 @@
             };
 
             json = pkgs: mkToolSuite {
-              lsps = [ ];
+              lsps = [
+                (pkgs.vscode-langservers-extracted.override
+                  {
+                    buildPhase = ''
+                      extensions="${pkgs.vscodium.src}/resources/app/extensions"
+                      npx babel $extensions/json-language-features/server/dist/node \
+                        --out-dir lib/json-language-server/node/
+                    '';
+                    installPhase = ''
+                      mkdir -p $out/lib
+                      cp -r lib/json-language-server $out/lib/
+                      mkdir -p $out/bin
+                      ln -s $out/lib/json-language-server/node/jsonServerMain.js $out/bin/vscode-json-languageserver
+                    '';
+                  })
+              ];
               linters = [ pkgs.nodePackages.jsonlint ];
-              formatters = [ ];
+              formatters = [ pkgs.fixjson ];
             };
 
             lua = pkgs: mkToolSuite {
