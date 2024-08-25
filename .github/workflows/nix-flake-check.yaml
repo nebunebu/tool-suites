@@ -19,8 +19,9 @@ jobs:
 
     - name: Check tool suites usability
       run: |
-        mkdir test-flake
-        cat << EOF > test-flake/flake.nix
+        WORKSPACE=$(pwd)
+        mkdir $WORKSPACE/test-flake
+        cat << EOF > $WORKSPACE/test-flake/flake.nix
         {
           description = "tool-suites test";
 
@@ -62,8 +63,10 @@ jobs:
             };
         }
         EOF
-        nix flake check ./test-flake || (echo "Flake check failed. Showing flake metadata:" && nix flake metadata ./test-flake)
+        echo "Contents of $WORKSPACE/test-flake/flake.nix:"
+        cat $WORKSPACE/test-flake/flake.nix
+        nix flake check $WORKSPACE/test-flake || (echo "Flake check failed. Showing flake metadata:" && nix flake metadata $WORKSPACE/test-flake)
 
     - name: Verify shell creation
       run: |
-        nix develop ./test-flake --command echo "Shell successfully created"
+        nix develop $WORKSPACE/test-flake --command echo "Shell successfully created"
