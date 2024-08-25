@@ -4,35 +4,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     tool-suites.url = "path:./..";
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs: {
-    checks = builtins.mapAttrs
-      (system: pkgs: {
-        pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-          src = ./.;
-          hooks = {
-            # nix
-            # nixd.enable = true;
-            statix.enable = true;
-            nixfmt.enable = false;
-            deadnix = {
-              enable = true;
-              settings.noLambdaPatternNames = true;
-            };
-            # lua
-            lua-ls.enable = false; # NOTE: error even though passing
-            luacheck.enable = true;
-            stylua.enable = true;
-          };
-        };
-      })
-      inputs.nixpkgs.legacyPackages;
-
     devShells = builtins.mapAttrs
       (
         system: _:
