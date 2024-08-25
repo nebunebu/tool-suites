@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    tool-suites.url = "github:nebunebu/tool-suites";
+    tool-suites.url = "path:./..";
   };
 
   outputs = inputs:
