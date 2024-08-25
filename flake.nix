@@ -111,7 +111,7 @@
           other = [
             pkgs.curl
             pkgs.direnv
-            pkgs.imagemagic
+            pkgs.imagemagick
             pkgs.luajitPackages.magick
             pkgs.ripgrep
           ];
