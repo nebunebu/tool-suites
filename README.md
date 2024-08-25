@@ -107,42 +107,48 @@ devShells = builtins.mapAttrs
 
 ## Tool Suites
 
-|          |               |                  |
-| -------- | ------------- | ---------------- |
-| **bash** |               |                  |
-|          | *langs*       | bash             |
-|          | *langServers* | bashls           |
-|          | *linters*     | shellcheck       |
-|          | *formatters*  | shfmt            |
-| **json** |               |                  |
-|          | *langServers* | jsonls           |
-|          | *linters*     | jsonlint         |
-|          | *formatters*  | fixjson          |
-| **html** |               |                  |
-|          | *langServers* | htmlls           |
-|          | *linters*     | htmlhint         |
-|          | *formatters*  | htmlbeautifier   |
-| **lua**  |               |                  |
-|          | *langs*       | lua              |
-|          | *langServers* | luals            |
-|          | *linters*     | luacheck         |
-|          | *formatters*  | stylua           |
-| **nix**  |               |                  |
-|          | *langServers* | nixd             |
-|          | *linters*     | statix, deadnix  |
-|          | *formatters*  | nixfmt-rfc-style |
-| **tex**  |               |                  |
-|          | *langServers* | texlab           |
-|          | *linters*     | chktex           |
-|          | *formatters*  | latexindent      |
-| **xml**  |               |                  |
-|          | *langServers* | lemminx          |
-|          | *linters*     | xmllint          |
-|          | *formatters*  | xmlformat        |
-| **yaml** |               |                  |
-|          | *langServers* | yamlls           |
-|          | *linters*     | yamllint         |
-|          | *formatters*  | yamlfmt          |
+|                |               |                  |
+| -------------- | ------------- | ---------------- |
+| **bash**       |               |                  |
+|                | *langs*       | bash             |
+|                | *langServers* | bashls           |
+|                | *linters*     | shellcheck       |
+|                | *formatters*  | shfmt            |
+| **json**       |               |                  |
+|                | *langServers* | jsonls           |
+|                | *linters*     | jsonlint         |
+|                | *formatters*  | fixjson          |
+| **html**       |               |                  |
+|                | *langServers* | htmlls           |
+|                | *linters*     | htmlhint         |
+|                | *formatters*  | htmlbeautifier   |
+| **lua**        |               |                  |
+|                | *langs*       | lua              |
+|                | *langServers* | luals            |
+|                | *linters*     | luacheck         |
+|                | *formatters*  | stylua           |
+| **nix**        |               |                  |
+|                | *langServers* | nixd             |
+|                | *linters*     | statix, deadnix  |
+|                | *formatters*  | nixfmt-rfc-style |
+| **nvim-tools** |               |                  |
+|                | *other*       | ripgrep, curl    |
+| **md**         |               |                  |
+|                | *langServers* | markdown-oxide   |
+|                | *linters*     | markdownlint     |
+|                | *formatters*  | markdownlint     |
+| **tex**        |               |                  |
+|                | *langServers* | texlab           |
+|                | *linters*     | chktex           |
+|                | *formatters*  | latexindent      |
+| **xml**        |               |                  |
+|                | *langServers* | lemminx          |
+|                | *linters*     | xmllint          |
+|                | *formatters*  | xmlformat        |
+| **yaml**       |               |                  |
+|                | *langServers* | yamlls           |
+|                | *linters*     | yamllint         |
+|                | *formatters*  | yamlfmt          |
 
 </details>
 
@@ -199,7 +205,7 @@ Feel free to contribute.
 - [x] latex
 - [ ] kotlin
 - [ ] nickel
-- [ ] markdown
+- [x] markdown
 - [x] nix
 - [ ] nvim
 - [ ] ocaml

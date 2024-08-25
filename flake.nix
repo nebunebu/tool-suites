@@ -1,5 +1,5 @@
 {
-  description = "A collection of development environments";
+  description = "Tool suites for development environments";
 
   outputs = inputs: {
     recipes = {
@@ -95,6 +95,20 @@
           ];
           formatters = [ pkgs.nixfmt-rfc-style ];
           # other = [ pkgs.nixdoc ];
+        };
+
+      md =
+        { pkgs }:
+        pkgs.lib.mkToolSuite {
+          langServers = [ pkgs.markdown_oxide ];
+          linters = [ pkgs.mardownlint-cli ];
+          formatters = [ pkgs.mardownlint-cli ];
+        };
+
+      nvim-tools =
+        { pkgs }:
+        pkgs.lib.mkToolSuite {
+          other = [ pkgs.ripgrep pkgs.curl ];
         };
 
       tex =
