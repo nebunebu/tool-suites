@@ -1,7 +1,6 @@
 # tool-suites
 
-A simple library that consolidates packages into flake
-outputs.
+A simple library that consolidates packages.
 
 ## Why?
 
@@ -102,6 +101,10 @@ devShells = builtins.mapAttrs
   inputs.nixpkgs.legacyPackages;
 ```
 
+<details>
+
+<summary>Tool Suites</summary>
+
 ## Tool Suites
 
 |          |               |            |
@@ -153,9 +156,15 @@ devShells = builtins.mapAttrs
 <!-- | linters     | yamllint | -->
 <!-- | formatters  | yamlfmt  | -->
 
+</details>
+
 ## Contributing
 
 Feel free to contribute.
+
+<details>
+
+<summary>TODO</summary>
 
 ## TODO
 
@@ -228,3 +237,5 @@ Feel free to contribute.
     - [ ] zig 
     - [ ] zsh 
 ```
+
+</details>
