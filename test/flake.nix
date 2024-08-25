@@ -27,6 +27,7 @@
             name = "testShell";
             packages = [
               (inputs.tool-suites.lib.${system}.bash pkgs).use
+              (inputs.tool-suites.lib.${system}.html pkgs).use
               (inputs.tool-suites.lib.${system}.lua pkgs).use
               (inputs.tool-suites.lib.${system}.latex pkgs).use
               (inputs.tool-suites.lib.${system}.nix pkgs).use

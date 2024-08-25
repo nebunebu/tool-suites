@@ -54,7 +54,6 @@
             };
 
             json = pkgs: mkToolSuite {
-              # langServers = [ pkgs.vscode-langservers-extracted ]; # FIX: should use only jsonls
               langServers = [
                 (pkgs.vscode-langservers-extracted.overrideAttrs (_: {
                   buildPhase =
@@ -81,6 +80,35 @@
               ];
               linters = [ pkgs.nodePackages.jsonlint ];
               formatters = [ pkgs.fixjson ];
+            };
+
+            html = pkgs: mkToolSuite {
+              langServers = [
+                (pkgs.vscode-langservers-extracted.overrideAttrs (_: {
+                  buildPhase =
+                    let
+                      extensions =
+                        if pkgs.stdenv.isDarwin
+                        then "../VSCodium.app/Contents/Resources/app/extensions"
+                        else "../resources/app/extensions";
+                    in
+                    ''
+                      npx babel ${extensions}/json-language-features/server/dist/node \
+                        --out-dir lib/html-language-server/node/
+                    '';
+                  installPhase = ''
+                    mkdir -p $out/bin $out/lib
+                    cp -r lib/html-language-server $out/lib/
+                    cat > $out/bin/vscode-html-language-server <<EOF
+                    #!/bin/sh
+                    exec ${pkgs.nodejs}/bin/node $out/lib/html-language-server/node/jsonServerMain.js "\$@"
+                    EOF
+                    chmod +x $out/bin/vscode-html-language-server
+                  '';
+                }))
+              ];
+              linters = [ pkgs.htmlhint ];
+              formatters = [ pkgs.rubyPackages.htmlbeautifier ];
             };
 
             lua = pkgs: mkToolSuite {
@@ -124,42 +152,44 @@
           }
         );
 
-      checks = forAllSystems (
-        system:
-        {
-          pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              # nix
-              # nixd.enable = true;
-              statix.enable = true;
-              nixfmt.enable = false;
-              deadnix = {
-                enable = true;
-                settings.noLambdaPatternNames = true;
+      checks = forAllSystems
+        (
+          system:
+          {
+            pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+              src = ./.;
+              hooks = {
+                # nix
+                # nixd.enable = true;
+                statix.enable = true;
+                nixfmt.enable = false;
+                deadnix = {
+                  enable = true;
+                  settings.noLambdaPatternNames = true;
+                };
+                # lua
+                lua-ls.enable = false; # NOTE: error even though passing
+                luacheck.enable = true;
+                stylua.enable = true;
               };
-              # lua
-              lua-ls.enable = false; # NOTE: error even though passing
-              luacheck.enable = true;
-              stylua.enable = true;
             };
-          };
-        }
-      );
+          }
+        );
 
-      devShells = forAllSystems (
-        system:
-        let
-          pkgs = inputs.nixpkgs.legacyPackages.${system};
-        in
-        {
-          default = pkgs.mkShell {
-            name = "dev-environments";
-            packages = [
-              (inputs.self.lib.${system}.nix pkgs).use
-            ];
-          };
-        }
-      );
+      devShells = forAllSystems
+        (
+          system:
+          let
+            pkgs = inputs.nixpkgs.legacyPackages.${system};
+          in
+          {
+            default = pkgs.mkShell {
+              name = "dev-environments";
+              packages = [
+                (inputs.self.lib.${system}.nix pkgs).use
+              ];
+            };
+          }
+        );
     };
 }
