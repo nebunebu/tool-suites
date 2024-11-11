@@ -166,6 +166,7 @@
             pkgs.imagemagick
             pkgs.luajitPackages.magick
             pkgs.ripgrep
+            pkgs.locate
           ];
         };
 
